@@ -1,76 +1,76 @@
 <template>
   <app-layout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Explore</h2>
+      <h2 class="tw-font-semibold tw-text-xl tw-text-gray-800 tw-leading-tight">Explore</h2>
     </template>
 
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-          <body class="bg-gray-100 text-gray-700 font-sans quicksand">
-            <div class="p-16">
+    <div class="tw-py-12">
+      <div class="tw-max-w-7xl tw-mx-auto sm:tw-px-6 lg:tw-px-8">
+        <div class="tw-bg-white tw-overflow-hidden tw-shadow-xl sm:tw-rounded-lg">
+          <body class="tw-bg-gray-100 tw-text-gray-700 tw-font-sans quicksand">
+            <div class="tw-p-16">
               <div
                 class="
-                  grid
-                  md:grid-cols-2
-                  sm:grid-cols-1
-                  lg:grid-cols-3
-                  m-5
-                  mb-10
+                  tw-grid
+                  md:tw-grid-cols-2
+                  sm:tw-grid-cols-1
+                  lg:tw-grid-cols-3
+                  tw-m-5
+                  tw-mb-10
                 "
               >
-                <div class="max-w-xs rounded overflow-hidden shadow-lg my-2">
+                <div class="tw-max-w-xs tw-rounded tw-overflow-hidden tw-shadow-lg tw-my-2">
                   <img
-                    class="w-full"
+                    class="tw-w-full"
                     src="https://tailwindcss.com/img/card-top.jpg"
                     alt="Sunset in the mountains"
                   />
-                  <div class="px-6 py-4">
-                    <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-                    <p class="text-grey-darker text-base">
+                  <div class="tw-px-6 tw-py-4">
+                    <div class="tw-font-bold tw-text-xl tw-mb-2">The Coldest Sunset</div>
+                    <p class="text-grey-darker tw-text-base">
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Voluptatibus quia, nulla! Maiores et perferendis eaque,
                       exercitationem praesentium nihil.
                     </p>
                   </div>
-                  <div class="px-6 py-4">
+                  <div class="tw-px-6 tw-py-4">
                     <span
                       class="
-                        inline-block
+                        tw-inline-block
                         bg-grey-lighter
-                        rounded-full
-                        px-3
-                        py-1
-                        text-sm
-                        font-semibold
+                        tw-rounded-full
+                        tw-px-3
+                        tw-py-1
+                        tw-text-sm
+                        tw-font-semibold
                         text-grey-darker
-                        mr-2
+                        tw-mr-2
                       "
                       >#photography</span
                     >
                     <span
                       class="
-                        inline-block
+                        tw-inline-block
                         bg-grey-lighter
-                        rounded-full
-                        px-3
-                        py-1
-                        text-sm
-                        font-semibold
+                        tw-rounded-full
+                        tw-px-3
+                        tw-py-1
+                        tw-text-sm
+                        tw-font-semibold
                         text-grey-darker
-                        mr-2
+                        tw-mr-2
                       "
                       >#travel</span
                     >
                     <span
                       class="
-                        inline-block
+                        tw-inline-block
                         bg-grey-lighter
-                        rounded-full
-                        px-3
-                        py-1
-                        text-sm
-                        font-semibold
+                        tw-rounded-full
+                        tw-px-3
+                        tw-py-1
+                        tw-text-sm
+                        tw-font-semibold
                         text-grey-darker
                       "
                       >#winter</span
