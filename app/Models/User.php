@@ -58,4 +58,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    protected $dates = [
+        'trial_ends_at',
+        'ends_at'
+    ];
 }

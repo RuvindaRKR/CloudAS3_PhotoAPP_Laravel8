@@ -8,6 +8,14 @@ window._ = require('lodash');
 
 window.axios = require('axios');
 
+window.$ =  window.jquery = require('jquery');
+
+//Reference : [1]A. Ashik, "How to fix this error : " Module not found :can't resolve popper.js "", Stack Overflow, 2021. [Online]. Available: https://stackoverflow.com/questions/57459917/how-to-fix-this-error-module-not-found-cant-resolve-popper-js. [Accessed: 06- Jun- 2021].
+require('popper.js');
+
+require('bootstrap');
+
+
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
