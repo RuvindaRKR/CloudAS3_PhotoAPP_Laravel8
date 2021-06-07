@@ -18,5 +18,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Route::middleware('auth:sanctum')->prefix('api')->group(function() {
+//     Route::apiResource('photos','App\Http\Controllers\PhotosController');
+//     Route::apiResource('comments','App\Http\Controllers\CommentsController');
+// });
+
 Route::apiResource('photos','App\Http\Controllers\PhotosController');
 Route::apiResource('comments','App\Http\Controllers\CommentsController');
+
+// Route::post('/photos', 'App\Http\Controllers\PhotosController@store')->middleware('auth:sanctum');
+
+// Route::put('/photos', ['App\Http\Controllers\PhotosController', 'store'])
+//             ->middleware(['auth'])
+//             ->name('photo.store');

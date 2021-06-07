@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Photo;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class PhotosController extends Controller
 {
@@ -26,17 +29,21 @@ class PhotosController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'photo' => ['required', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'uploadedPhoto' => ['required', 'mimes:jpg,jpeg,png', 'max:10240'],
             'title'=>'required',
             'description'=>'required'
         ]);
 
         $photo = new Photo();
-        $photo->user_id = $request->user();
-        $photo->photo_path = $request->file('photo')->store('photo-uploads');
+        $photo->user_id = $request->user()->id;
+        //Reference: [3]"File Storage - Laravel - The PHP Framework For Web Artisans", Laravel.com, 2021. [Online]. Available: https://laravel.com/docs/8.x/filesystem#specifying-a-disk. [Accessed: 07- Jun- 2021].
+        $photo->photo_path = $request->file('uploadedPhoto')->store('photo-uploads/'.$request->user()->id, 's3');
         $photo->title = $request->title;
         $photo->description = $request->description;
         $photo->likes = 0;
+        $photo->rank = 0;
+        $photo->created_at = Carbon::now();
+        $photo->updated_at = Carbon::now();
 
         $photo->save();
 
@@ -64,14 +71,14 @@ class PhotosController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'photo' => ['required', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'uploadedPhoto' => ['required', 'mimes:jpg,jpeg,png', 'max:1024'],
             'title'=>'required',
             'description'=>'required'
         ]);
 
         $photo = Photo::find($id);
         $photo->user_id = $request->user();
-        $photo->photo_path = $request->file('photo')->store('photo-uploads');
+        $photo->photo_path = $request->file('uploadedPhoto')->store('photo-uploads');
         $photo->title = $request->title;
         $photo->description = $request->description;
         $photo->likes = 0;

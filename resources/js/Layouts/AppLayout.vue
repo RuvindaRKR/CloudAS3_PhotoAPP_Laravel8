@@ -109,7 +109,7 @@
                                             Manage Account
                                         </div>
 
-                                        <jet-dropdown-link :href="route('profile.show')">
+                                        <jet-dropdown-link class='non-underline-link' :href="route('profile.show')">
                                             Profile
                                         </jet-dropdown-link>
 
