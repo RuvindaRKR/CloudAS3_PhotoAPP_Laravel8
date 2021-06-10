@@ -26,7 +26,7 @@
                     alt="Sunset in the mountains"
                   />
                   <div class="tw-px-6 tw-py-4">
-                    <div class="tw-font-bold tw-text-xl tw-mb-2">The Coldest Sunset</div>
+                    <div class="tw-font-bold tw-text-xl tw-mb-2">The Coldest Sunset {{ data }}</div>
                     <p class="text-grey-darker tw-text-base">
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Voluptatibus quia, nulla! Maiores et perferendis eaque,
@@ -95,5 +95,10 @@ export default {
     AppLayout,
     Welcome,
   },
+  data(){
+            return{
+                props: ['data'],
+            }
+  }
 };
 </script>

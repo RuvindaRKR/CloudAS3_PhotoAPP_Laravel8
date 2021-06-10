@@ -23,8 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     Route::apiResource('comments','App\Http\Controllers\CommentsController');
 // });
 
-Route::apiResource('photos','App\Http\Controllers\PhotosController');
-Route::apiResource('comments','App\Http\Controllers\CommentsController');
+// Route::apiResource('photos','App\Http\Controllers\PhotosController');
+// Route::apiResource('comments','App\Http\Controllers\CommentsController');
 
 // Route::post('/photos', 'App\Http\Controllers\PhotosController@store')->middleware('auth:sanctum');
 

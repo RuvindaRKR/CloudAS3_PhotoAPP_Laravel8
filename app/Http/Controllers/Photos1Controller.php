@@ -5,14 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Photo;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rule;
-use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
+use Illuminate\Support\Facades\Validator;
 
-class PhotosController extends Controller
+class Photos1Controller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +18,7 @@ class PhotosController extends Controller
     public function index()
     {
         $data = Photo::all();
-        return Inertia::render('MyPhotos', ['data' => $data]);
+        return Inertia::render('MyPhotos1', ['data' => $data]);
     }
 
     /**
@@ -53,21 +49,8 @@ class PhotosController extends Controller
 
         $photo->save();
 
-        // return response('Successfully Uploaded Photo', 201);
-        // return Redirect::route('photos.index');
         return redirect()->back()
                     ->with('message', 'Post Created Successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return Photo::find($id);
     }
 
     /**
@@ -77,17 +60,22 @@ class PhotosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        Validator::make($request->all(), [
+            'title' => ['required'],
+            'description' => ['required'],
+        ])->validate();
 
-        $photo = Photo::find($id);
-        $photo->title = $request->title;
-        $photo->description = $request->description;
+        if ($request->has('id')) {
+            $photo = Photo::find($request->input('id'));
+            $photo->title = $request->title;
+            $photo->description = $request->description;
 
-        $photo->save();
-
-        return redirect()->back()
+            $photo->save();
+            return redirect()->back()
                     ->with('message', 'Post Updated Successfully.');
+        }
     }
 
     /**
@@ -96,11 +84,11 @@ class PhotosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Photo::find($id)->delete();
-        //return response('Successfully Deleted Photo', 200);
-        return redirect()->back()
-                    ->with('message', 'Post Deleted Successfully.');
+        if ($request->has('id')) {
+            Photo::find($request->input('id'))->delete();
+            return redirect()->back();
+        }
     }
 }

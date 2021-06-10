@@ -21,8 +21,13 @@
                                     Explore
                                 </jet-nav-link>
                             </div>
-                            <div class="tw-hidden tw-space-x-8 sm:tw--my-px sm:tw-ml-10 sm:tw-flex">
+                            <!-- <div class="tw-hidden tw-space-x-8 sm:tw--my-px sm:tw-ml-10 sm:tw-flex">
                                 <jet-nav-link :href="route('my_photos')" :active="route().current('my_photos')">
+                                    My Photos
+                                </jet-nav-link>
+                            </div> -->
+                            <div class="tw-hidden tw-space-x-8 sm:tw--my-px sm:tw-ml-10 sm:tw-flex">
+                                <jet-nav-link :href="route('photos.index')" :active="route().current('photos.index')">
                                     My Photos
                                 </jet-nav-link>
                             </div>

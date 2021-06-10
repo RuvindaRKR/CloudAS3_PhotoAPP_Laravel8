@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\PhotosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/my_photos', function () {
     return Inertia::render('MyPhotos');
 })->name('my_photos');
+
+
+// Route::apiResource('photos','App\Http\Controllers\PhotosController');
+// Route::apiResource('comments','App\Http\Controllers\CommentsController');
+
+Route::resource('/photos', PhotosController::class);

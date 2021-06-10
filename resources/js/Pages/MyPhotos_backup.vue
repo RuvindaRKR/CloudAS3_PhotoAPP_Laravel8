@@ -1,5 +1,4 @@
 <template>
-<div>
     <app-layout>
         <template #header>
             <h2 class="tw-font-semibold tw-text-xl tw-text-gray-800 tw-leading-tight">
@@ -15,13 +14,11 @@
                 Upload Photo
                 </button></p>
 
-                {{form.title}}
-
                 <!-- Modal -->
                     <div class="modal fade" id="uploadPhotoModal" tabindex="-1" aria-labelledby="uploadPhotoModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-                            <form id="addPhotoForm" @submit.prevent="submit">
+                            <form id="addPhotoForm" @submit.prevent="uploadPhoto">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="uploadPhotoModalLabel">Upload a new photo</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -29,8 +26,7 @@
                                 <div class="modal-body">
                                         <div class="mb-3">
                                             <label for="uploadedPhoto" class="form-label">Photo</label>
-                                            <input type="file" @input="form.uploadedPhoto = $event.target.files[0]" ref="uploadedPhoto" @change="updatePhotoPreview" class="form-control" id="uploadedPhoto" required>
-                                            <div v-if="form.errors.uploadedPhoto" style="color: red;">{{ form.errors.uploadedPhoto }}</div>
+                                            <input type="file" ref="uploadedPhoto" @change="updatePhotoPreview" class="form-control" id="uploadedPhoto" required>
                                         </div> 
 
                                         <!-- New Profile Photo Preview -->
@@ -43,18 +39,16 @@
 
                                         <div class="mb-3">
                                             <label for="title" class="form-label">Title</label>
-                                            <input type="text" v-model="form.title" class="form-control" id="title" required>
-                                            <div v-if="form.errors.title" style="color: red;">{{ form.errors.title }}</div>
+                                            <input type="text" v-model="photo.title" class="form-control" id="title" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="description" class="form-label">Description</label>
-                                            <textarea class="form-control" v-model="form.description" rows="5" id="description" required></textarea>
-                                            <div v-if="form.errors.description" style="color: red;">{{ form.errors.description }}</div>
+                                            <textarea class="form-control" v-model="photo.description" rows="5" id="description" required></textarea>
                                         </div>  
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" :disabled="form.processing">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                             </div>
@@ -84,7 +78,7 @@
                                 </tr>
                             </thead>
                             <tbody class="tw-bg-white tw-divide-y tw-divide-gray-200">
-                                <tr v-for="x in data" :key="x.id">
+                                <tr v-for="x in photos" :key="x.id">
                                 <td class="tw-px-6 tw-py-4 tw-whitespace-nowrap">
                                     <div class="tw-flex tw-items-center">
                                         <div class="tw-flex-shrink-0 tw-h-10 tw-w-10">
@@ -99,35 +93,51 @@
                                     {{x.description}}
                                 </td>
                                 <td class="tw-px-6 tw-py-4 tw-whitespace-nowrap tw-text-right tw-text-sm tw-font-medium">
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" @click="edit(x)" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editPhotoModal">Edit</button>
-                                        <button type="button" class="btn btn-outline-danger" @click="deleteRow(x)">Delete</button>
-                                    </div>
+                                    <!-- Button trigger modal -->
+                                    <p><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editPhotoModal">
+                                    Edit
+                                    </button></p>
 
                                     <!-- Modal -->
-                                        <div class="modal fade" id="editPhotoModal" tabindex="-1" aria-labelledby="editPhotoModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="editPhotoModal" tabindex="-1" aria-labelledby="uploadPhotoModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
-                                                <form id="editPhotoForm">
+                                                <form id="addPhotoForm" @submit.prevent="uploadPhoto">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="uploadPhotoModalLabel">Upload a new photo</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
                                                     <div class="modal-body">
-                                                        <div class="card">
-                                                            <p><img :src="s3url + form1.photo_path" class="card-img-top" alt=""></p>
-                                                            <div>
-                                                                <label for="title" class="form-label">Title</label>
-                                                                <input type="text" v-model="form1.title" class="form-control" id="title" required>
-                                                            </div>
-                                                            <div>
-                                                                <label for="description" class="form-label">Description</label>
-                                                                <textarea class="form-control" v-model="form1.description" rows="5" id="description" required></textarea>
+                                                        <!-- <form id="addPhotoForm" @submit.prevent="uploadPhoto"> -->
+                                                            <div class="mb-3">
+                                                                <label for="uploadedPhoto" class="form-label">Photo</label>
+                                                                <input type="file" ref="uploadedPhoto" @change="updatePhotoPreview" class="form-control" id="uploadedPhoto">
                                                             </div> 
-                                                        </div>
+
+                                                            <!-- New Profile Photo Preview -->
+                                                            <div class="mb-3" v-show="photoPreview">
+                                                                <label class="form-label">Preview</label>
+                                                                <span class="object-contain tw-h-48 tw-w-full tw-bg-gray-500 tw-flex tw-items-center tw-justify-center tw-overflow-hidden"
+                                                                    :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'">
+                                                                </span>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="title" class="form-label">Title</label>
+                                                                <input type="text" v-model="photo.title" class="form-control" id="title">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="description" class="form-label">Description</label>
+                                                                <textarea class="form-control" v-model="photo.description" rows="5" id="description"></textarea>
+                                                            </div>  
+                                                            <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                                                        <!-- </form>     -->
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary" @click="update(form1)">Update</button>
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
                                                     </div>
                                                 </form>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -143,36 +153,49 @@
             </div>
         </div>
     </app-layout>
-    </div>
 </template>
 
 <script>
     import AppLayout from '@/Layouts/AppLayout'
+    import JetButton from '@/Jetstream/Button'
+    import JetFormSection from '@/Jetstream/FormSection'
+    import JetInput from '@/Jetstream/Input'
+    import JetInputError from '@/Jetstream/InputError'
+    import JetLabel from '@/Jetstream/Label'
+    import JetActionMessage from '@/Jetstream/ActionMessage'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
 
     export default {
         components: {
             AppLayout,
+            JetActionMessage,
+            JetButton,
+            JetFormSection,
+            JetInput,
+            JetInputError,
+            JetLabel,
+            JetSecondaryButton,
         },
 
-        props: ['data', 'errors'],
-
         data(){
-            
             return{
                 form: this.$inertia.form({
-                    // _method: 'PUT',
+                    _method: 'PUT',
                     title:'',
                     description:'',
                     uploadedPhoto: null,
                 }),
 
-                form1: {
-                    _method: 'PUT',
-                    title: null,
-                    description: null,
-                },
-                
+                props: ['data'],
+
                 photoPreview: null,
+
+                photos:[],
+                photo:{
+                    uploadedPhoto:null,
+                    title:'',
+                    description:''
+                },
 
                 s3url: 'https://photoappas3.s3-ap-southeast-1.amazonaws.com/',
 
@@ -180,40 +203,57 @@
         },
 
         methods:{
-            submit() {
+            async uploadPhoto(){
+                let formData = new FormData();
+
                 if (this.$refs.uploadedPhoto) {
-                    this.form.uploadedPhoto = this.$refs.uploadedPhoto.files[0];
+                    this.photo.uploadedPhoto = this.$refs.uploadedPhoto.files[0];
+                    formData.append('uploadedPhoto', this.photo.uploadedPhoto);
                 }
 
-                this.form.post(route('photos.store'), {
-                    preserveScroll: true,
-                    onSuccess: () => {
-                        this.resetForm();
-                        Toast.fire({
-                                icon:'success',
-                                title:'Post Created Successfully'
-                            })
-                    },
-                });
+                formData.append('description', this.photo.description);
+                formData.append('title', this.photo.title);
 
-                },
-
-            update(data) {
-                this.$inertia.put('/photos/' + data.id, data, {
-                    preserveScroll: true,
-                    onSuccess: () => {
-                        this.resetForm();
-                        Toast.fire({
+                await axios
+                    .post("/api/photos", formData)
+                    .then(
+                    function (res) {
+                        if (res.status === 201) {
+                            Toast.fire({
                                 icon:'success',
-                                title:'Post Updated Successfully'
+                                title:res.data
                             })
-                    },
+                            this.resetForm();
+                            $('#uploadPhotoModal').modal('hide');
+                            this.getPhotos();
+                        }
+                    }.bind(this)
+                    )
+                    .catch(function (error) {
+                    console.log(error);
+                    });
+            },
+
+            getPhotos() {
+            axios
+                .get("/api/photos")
+                .then((response) => {
+                    this.photos = response.data
                 })
+                .catch(function (error) {
+                console.log(error);
+                });
+            },
 
-                },
-
-            edit: function (data) {
-                this.form1 = Object.assign({}, data);
+            getPhotoToUpdate() {
+            axios
+                .get("/api/photos")
+                .then((response) => {
+                    this.photos = response.data
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
             },
 
             selectNewPhoto() {
@@ -221,16 +261,15 @@
             },
 
             resetForm() {
-                $('#uploadPhotoModal').modal('hide');
-                $('#editPhotoModal').modal('hide');
                 this.photoPreview = null;
-                this.form.description = '';
-                this.form.title = '';
+                this.photo.description = '';
+                this.photo.title = '';
                 document.getElementById("addPhotoForm").reset();
             },
 
             updatePhotoPreview() {
                 const photo = this.$refs.uploadedPhoto.files[0];
+                this.photo.uploadedPhoto = this.$refs.uploadedPhoto.files[0];
 
                 if (! photo) return;
 
@@ -243,22 +282,14 @@
                 reader.readAsDataURL(photo);
             },
 
-            deleteRow: function (data) {
-                if (!confirm('Are you sure want to remove?')) return;                
-                this.$inertia.delete('/photos/' + data.id, {
-                    preserveScroll: true,
-                    onSuccess: () => {
-                            Toast.fire({
-                                icon:'success',
-                                title:'Post Deleted Successfully'
-                            })
-                    },
-                })
-
-            }
+            clearPhotoFileInput() {
+                if (this.$refs.uploadedPhoto?.value) {
+                    this.$refs.uploadedPhoto.value = null;
+                }
+            },
         },
         created(){
-            
+            this.getPhotos()
         }
     }
 </script>
