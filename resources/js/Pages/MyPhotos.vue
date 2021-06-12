@@ -15,8 +15,6 @@
                 Upload Photo
                 </button></p>
 
-                {{form.title}}
-
                 <!-- Modal -->
                     <div class="modal fade" id="uploadPhotoModal" tabindex="-1" aria-labelledby="uploadPhotoModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">

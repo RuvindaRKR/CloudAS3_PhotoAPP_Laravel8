@@ -41,8 +41,8 @@
                         </span>                 
                       </span>
                       <span v-if="liked == true">
-                        <i class="fas fa-heart fa-lg"></i>
-                          <!-- <button class="btn" @click="dislike(x)"><i class="fas fa-heart fa-lg"></i></button> -->
+                        <!-- <i class="fas fa-heart fa-lg"></i> -->
+                          <button class="btn" @click="dislike(x)"><i class="fas fa-heart fa-lg"></i></button>
                       </span>
                       <span v-else>
                         <button class="btn" @click="like(x)"><i class="far fa-heart fa-lg"></i></button>
@@ -136,17 +136,17 @@ export default {
      })
     },
 
-    // dislike(data) {
-    //     this.$inertia.delete('/dashboard/' + data.id, data, {
-    //         preserveScroll: true,
-    //         onSuccess: () => {
-    //         Toast.fire({
-    //             icon:'success',
-    //             title:'Liked Photo Successfully'
-    //           })
-    //         },
-    //  })
-    // }
+    dislike(data) {
+        this.$inertia.delete('/dashboard/' + data.id, data, {
+            preserveScroll: true,
+            onSuccess: () => {
+            Toast.fire({
+                icon:'success',
+                title:'Disliked Photo Successfully'
+              })
+            },
+     })
+    }
 
   },
   created(){
