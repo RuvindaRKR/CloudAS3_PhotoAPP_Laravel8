@@ -19,18 +19,34 @@
                   tw-mb-10
                 "
               >
-                <div class="tw-max-w-xs tw-rounded tw-overflow-hidden tw-shadow-lg tw-my-2">
+              
+                <span v-for="x in data" :key="x.id">
+                  <div class="tw-max-w-xs tw-rounded tw-overflow-hidden tw-shadow-lg tw-my-2">
                   <img
                     class="tw-w-full"
-                    src="https://tailwindcss.com/img/card-top.jpg"
+                    :src="s3url + x.photo_path"
                     alt="Sunset in the mountains"
                   />
                   <div class="tw-px-6 tw-py-4">
-                    <div class="tw-font-bold tw-text-xl tw-mb-2">The Coldest Sunset {{ data }}</div>
+                    <div class="tw-font-bold tw-text-xl tw-mb-2">{{x.title}}</div>
                     <p class="text-grey-darker tw-text-base">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                      exercitationem praesentium nihil.
+                      {{x.description}}
+                    </p>
+                    <p class="text-grey-darker tw-text-base">
+                      {{x.likes}} Likes 
+                      <span class="invisible">{{liked = false}}</span> 
+                      <span v-for="y in likes" :key="y.id">
+                        <span v-if="x.id == y.photo_id">
+                          <span class="invisible">{{liked = true}}</span> 
+                        </span>                 
+                      </span>
+                      <span v-if="liked == true">
+                        <i class="fas fa-heart fa-lg"></i>
+                          <!-- <button class="btn" @click="dislike(x)"><i class="fas fa-heart fa-lg"></i></button> -->
+                      </span>
+                      <span v-else>
+                        <button class="btn" @click="like(x)"><i class="far fa-heart fa-lg"></i></button>
+                      </span>
                     </p>
                   </div>
                   <div class="tw-px-6 tw-py-4">
@@ -77,6 +93,8 @@
                     >
                   </div>
                 </div>
+                </span>
+                
               </div>
             </div>
           </body>
@@ -95,10 +113,44 @@ export default {
     AppLayout,
     Welcome,
   },
+
+  props: ['data', 'likes', 'errors'],
+
   data(){
-            return{
-                props: ['data'],
-            }
-  }
-};
+      return{
+              s3url: 'https://photoappas3.s3-ap-southeast-1.amazonaws.com/',
+              liked: false,
+
+        }  
+  },
+  methods:{
+    like(data) {
+        this.$inertia.put('/dashboard/' + data.id, data, {
+            preserveScroll: true,
+            onSuccess: () => {
+            Toast.fire({
+                icon:'success',
+                title:'Liked Photo Successfully'
+              })
+            },
+     })
+    },
+
+    // dislike(data) {
+    //     this.$inertia.delete('/dashboard/' + data.id, data, {
+    //         preserveScroll: true,
+    //         onSuccess: () => {
+    //         Toast.fire({
+    //             icon:'success',
+    //             title:'Liked Photo Successfully'
+    //           })
+    //         },
+    //  })
+    // }
+
+  },
+  created(){
+            
+        }
+}
 </script>

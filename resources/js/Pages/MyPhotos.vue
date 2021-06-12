@@ -110,7 +110,7 @@
                                                 <div class="modal-content">
                                                 <form id="editPhotoForm">
                                                     <div class="modal-body">
-                                                        <div class="card">
+                                                        <!-- <div class="card"> -->
                                                             <p><img :src="s3url + form1.photo_path" class="card-img-top" alt=""></p>
                                                             <div>
                                                                 <label for="title" class="form-label">Title</label>
@@ -120,17 +120,16 @@
                                                                 <label for="description" class="form-label">Description</label>
                                                                 <textarea class="form-control" v-model="form1.description" rows="5" id="description" required></textarea>
                                                             </div> 
-                                                        </div>
+                                                        <!-- </div> -->
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                         <button type="button" class="btn btn-primary" @click="update(form1)">Update</button>
                                                     </div>
                                                 </form>
-
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>                           
                                 </td>
                                 </tr>
                             </tbody>

@@ -6,6 +6,7 @@ use App\Models\Photo;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
@@ -14,14 +15,20 @@ use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class PhotosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Photo::all();
+        //$data = Photo::all();
+        $user = $request->user();
+        $data = Photo::where('user_id', $user->id)->get();
         return Inertia::render('MyPhotos', ['data' => $data]);
     }
 
@@ -48,8 +55,6 @@ class PhotosController extends Controller
         $photo->description = $request->description;
         $photo->likes = 0;
         $photo->rank = 0;
-        $photo->created_at = Carbon::now();
-        $photo->updated_at = Carbon::now();
 
         $photo->save();
 

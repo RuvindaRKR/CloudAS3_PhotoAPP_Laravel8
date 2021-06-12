@@ -10,14 +10,14 @@
                         <div class="tw-flex">
                             <!-- Logo -->
                             <div class="tw-flex-shrink-0 tw-flex tw-items-center">
-                                <inertia-link :href="route('dashboard')">
+                                <inertia-link :href="route('dashboard.index')">
                                     <jet-application-mark class="tw-block tw-h-9 tw-w-auto" />
                                 </inertia-link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="tw-hidden tw-space-x-8 sm:tw--my-px sm:tw-ml-10 sm:tw-flex">
-                                <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
+                                <jet-nav-link :href="route('dashboard.index')" :active="route().current('dashboard.index')">
                                     Explore
                                 </jet-nav-link>
                             </div>
@@ -150,7 +150,7 @@
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'tw-block': showingNavigationDropdown, 'tw-hidden': ! showingNavigationDropdown}" class="sm:tw-hidden">
                     <div class="tw-pt-2 tw-pb-3 tw-space-y-1">
-                        <jet-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
+                        <jet-responsive-nav-link :href="route('dashboard.index')" :active="route().current('dashboard.index')">
                             Dashboard
                         </jet-responsive-nav-link>
                     </div>
