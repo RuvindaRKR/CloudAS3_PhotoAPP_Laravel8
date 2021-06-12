@@ -39,9 +39,9 @@
                         <span v-if="x.id == y.photo_id">
                           <span class="invisible">{{liked = true}}</span> 
                         </span>                 
-                      </span>
-                      <span v-if="liked == true">
-                        <!-- <i class="fas fa-heart fa-lg"></i> -->
+                      </span></p>
+
+                      <p><span v-if="liked == true">
                           <button class="btn" @click="dislike(x)"><i class="fas fa-heart fa-lg"></i></button>
                       </span>
                       <span v-else>
@@ -128,12 +128,27 @@ export default {
         this.$inertia.put('/dashboard/' + data.id, data, {
             preserveScroll: true,
             onSuccess: () => {
-            Toast.fire({
-                icon:'success',
-                title:'Liked Photo Successfully'
-              })
+            // Toast.fire({
+            //     icon:'success',
+            //     title:'Liked Photo Successfully'
+            //   })
             },
-     })
+     }),
+
+     axios
+        .post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod")
+        .then(
+          function (res) {
+          if (res.status === 200) {
+            Toast.fire({
+              icon:'success',
+              title:'AWS Success'
+              })}
+              }
+        .bind(this))
+        .catch(function (error) {
+            console.log(error);
+        });
     },
 
     dislike(data) {

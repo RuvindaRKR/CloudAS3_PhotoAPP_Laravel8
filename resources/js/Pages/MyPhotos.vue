@@ -76,6 +76,9 @@
                                 <th scope="col" class="tw-px-6 tw-py-3 tw-text-left tw-text-xs tw-font-medium tw-text-gray-500 tw-uppercase tw-tracking-wider">
                                     Description
                                 </th>
+                                <th scope="col" class="tw-px-6 tw-py-3 tw-text-left tw-text-xs tw-font-medium tw-text-gray-500 tw-uppercase tw-tracking-wider">
+                                    Total Likes
+                                </th>
                                 <th scope="col" class="tw-relative tw-px-6 tw-py-3">
                                     <span class="tw-sr-only">Action</span>
                                 </th>
@@ -95,6 +98,9 @@
                                 </td>
                                 <td class="tw-px-6 tw-py-4 tw-whitespace-nowrap tw-text-sm tw-text-gray-500">
                                     {{x.description}}
+                                </td>
+                                <td class="tw-px-6 tw-py-4 tw-whitespace-nowrap tw-text-sm tw-text-gray-500">
+                                    {{x.likes}}
                                 </td>
                                 <td class="tw-px-6 tw-py-4 tw-whitespace-nowrap tw-text-right tw-text-sm tw-font-medium">
                                     <div class="btn-group" role="group" aria-label="Basic outlined example">
@@ -157,7 +163,6 @@
             
             return{
                 form: this.$inertia.form({
-                    // _method: 'PUT',
                     title:'',
                     description:'',
                     uploadedPhoto: null,

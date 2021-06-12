@@ -21036,12 +21036,20 @@ __webpack_require__.r(__webpack_exports__);
     like: function like(data) {
       this.$inertia.put('/dashboard/' + data.id, data, {
         preserveScroll: true,
-        onSuccess: function onSuccess() {
+        onSuccess: function onSuccess() {// Toast.fire({
+          //     icon:'success',
+          //     title:'Liked Photo Successfully'
+          //   })
+        }
+      }), axios.post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod").then(function (res) {
+        if (res.status === 200) {
           Toast.fire({
             icon: 'success',
-            title: 'Liked Photo Successfully'
+            title: 'AWS Success'
           });
         }
+      }.bind(this))["catch"](function (error) {
+        console.log(error);
       });
     },
     dislike: function dislike(data) {
@@ -21082,7 +21090,6 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: this.$inertia.form({
-        // _method: 'PUT',
         title: '',
         description: '',
         uploadedPhoto: null
@@ -25328,7 +25335,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
         }), 128
         /* KEYED_FRAGMENT */
-        )), $data.liked == true ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"fas fa-heart fa-lg\"></i> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+        ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, [$data.liked == true ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
           "class": "btn",
           onClick: function onClick($event) {
             return $options.dislike(x);
@@ -25527,6 +25534,9 @@ var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
   "class": "tw-px-6 tw-py-3 tw-text-left tw-text-xs tw-font-medium tw-text-gray-500 tw-uppercase tw-tracking-wider"
 }, " Description "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
   scope: "col",
+  "class": "tw-px-6 tw-py-3 tw-text-left tw-text-xs tw-font-medium tw-text-gray-500 tw-uppercase tw-tracking-wider"
+}, " Total Likes "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  scope: "col",
   "class": "tw-relative tw-px-6 tw-py-3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
   "class": "tw-sr-only"
@@ -25556,52 +25566,55 @@ var _hoisted_36 = {
   "class": "tw-px-6 tw-py-4 tw-whitespace-nowrap tw-text-sm tw-text-gray-500"
 };
 var _hoisted_37 = {
-  "class": "tw-px-6 tw-py-4 tw-whitespace-nowrap tw-text-right tw-text-sm tw-font-medium"
+  "class": "tw-px-6 tw-py-4 tw-whitespace-nowrap tw-text-sm tw-text-gray-500"
 };
 var _hoisted_38 = {
+  "class": "tw-px-6 tw-py-4 tw-whitespace-nowrap tw-text-right tw-text-sm tw-font-medium"
+};
+var _hoisted_39 = {
   "class": "btn-group",
   role: "group",
   "aria-label": "Basic outlined example"
 };
-var _hoisted_39 = {
+var _hoisted_40 = {
   "class": "modal fade",
   id: "editPhotoModal",
   tabindex: "-1",
   "aria-labelledby": "editPhotoModalLabel",
   "aria-hidden": "true"
 };
-var _hoisted_40 = {
+var _hoisted_41 = {
   "class": "modal-dialog modal-dialog-centered"
 };
-var _hoisted_41 = {
+var _hoisted_42 = {
   "class": "modal-content"
 };
-var _hoisted_42 = {
+var _hoisted_43 = {
   id: "editPhotoForm"
 };
-var _hoisted_43 = {
+var _hoisted_44 = {
   "class": "modal-body"
 };
 
-var _hoisted_44 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "title",
   "class": "form-label"
 }, "Title", -1
 /* HOISTED */
 );
 
-var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "description",
   "class": "form-label"
 }, "Description", -1
 /* HOISTED */
 );
 
-var _hoisted_46 = {
+var _hoisted_47 = {
   "class": "modal-footer"
 };
 
-var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+var _hoisted_48 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
   type: "button",
   "class": "btn btn-secondary",
   "data-bs-dismiss": "modal"
@@ -25690,7 +25703,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* TEXT */
         )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(x.description), 1
         /* TEXT */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(x.likes), 1
+        /* TEXT */
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
           type: "button",
           onClick: function onClick($event) {
             return $options.edit(x);
@@ -25708,13 +25723,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }
         }, "Delete", 8
         /* PROPS */
-        , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("form", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"card\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
+        , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("form", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"card\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
           src: $data.s3url + $data.form1.photo_path,
           "class": "card-img-top",
           alt: ""
         }, null, 8
         /* PROPS */
-        , ["src"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [_hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
+        , ["src"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [_hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
           type: "text",
           "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
             return $data.form1.title = $event;
@@ -25724,7 +25739,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           required: ""
         }, null, 512
         /* NEED_PATCH */
-        ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form1.title]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [_hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("textarea", {
+        ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form1.title]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [_hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("textarea", {
           "class": "form-control",
           "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
             return $data.form1.description = $event;
@@ -25734,7 +25749,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           required: ""
         }, null, 512
         /* NEED_PATCH */
-        ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form1.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </div> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_46, [_hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+        ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form1.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </div> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_47, [_hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
           type: "button",
           "class": "btn btn-primary",
           onClick: _cache[8] || (_cache[8] = function ($event) {
