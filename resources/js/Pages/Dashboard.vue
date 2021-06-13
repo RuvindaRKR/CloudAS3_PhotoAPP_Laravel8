@@ -40,6 +40,21 @@
                       <span v-else>
                         <button class="btn" @click="like(x)"><i class="far fa-heart fa-lg"></i></button>
                       </span></p>
+
+                      <span
+                      class="
+                        tw-inline-block
+                        bg-grey-lighter
+                        tw-rounded-full
+                        tw-px-3
+                        tw-py-1
+                        tw-text-sm
+                        tw-font-semibold
+                        text-grey-darker
+                        tw-mr-2
+                      "
+                      >#rank {{x.rank}}</span
+                    >
                   </div>
                   <div class="tw-px-6 tw-py-4">
                     <span
@@ -127,20 +142,8 @@ export default {
                 title:'Liked Photo Successfully'
               })
             },
-     }),
+     });
 
-
-    axios
-        .post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod/DynamoDBManager", 
-        {
-            "operation": "update",
-            "tableName": "photos",
-            "payload": {
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
   },
 
     dislike(data) {
@@ -153,11 +156,26 @@ export default {
               })
             },
      })
+
     },
 
   },
-  created(){
-            
+  updated(){
+            axios
+            .post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod/DynamoDBManager", 
+            {
+                "operation": "update",
+                "tableName": "photos",
+                "payload": {
+                }
+            })
+            .then(function (res) {
+              console.log(res);
+             }
+            .bind(this))
+            .catch(function (error) {
+                console.log(error);
+            });
         }
 }
 </script>
