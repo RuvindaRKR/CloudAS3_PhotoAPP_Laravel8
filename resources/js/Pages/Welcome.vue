@@ -6,13 +6,14 @@
             </inertia-link>
 
             <template v-else>
-                <inertia-link :href="route('login')" class="tw-text-sm tw-text-gray-700 tw-underline">
-                    Log in
-                </inertia-link>
-
-                <inertia-link v-if="canRegister" :href="route('register')" class="tw-ml-4 tw-text-sm tw-text-gray-700 tw-underline">
-                    Register
-                </inertia-link>
+                <div class="inline-flex">
+                    <inertia-link :href="route('login')" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
+                        Log in
+                    </inertia-link>
+                    <inertia-link v-if="canRegister" :href="route('register')" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+                        Register
+                    </inertia-link>
+                    </div>
             </template>
         </div>
 

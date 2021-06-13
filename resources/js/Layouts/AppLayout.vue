@@ -21,14 +21,19 @@
                                     Explore
                                 </jet-nav-link>
                             </div>
-                            <!-- <div class="tw-hidden tw-space-x-8 sm:tw--my-px sm:tw-ml-10 sm:tw-flex">
-                                <jet-nav-link :href="route('my_photos')" :active="route().current('my_photos')">
-                                    My Photos
-                                </jet-nav-link>
-                            </div> -->
                             <div class="tw-hidden tw-space-x-8 sm:tw--my-px sm:tw-ml-10 sm:tw-flex">
                                 <jet-nav-link :href="route('photos.index')" :active="route().current('photos.index')">
                                     My Photos
+                                </jet-nav-link>
+                            </div>
+                            <div class="tw-hidden tw-space-x-8 sm:tw--my-px sm:tw-ml-10 sm:tw-flex">
+                                <jet-nav-link v-on:click="getPortal()">
+                                    Billing Portal
+                                </jet-nav-link>
+                            </div>
+                            <div class="tw-hidden tw-space-x-8 sm:tw--my-px sm:tw-ml-10 sm:tw-flex">
+                                <jet-nav-link :href="route('billing-portal')">
+                                    Billing Portal1
                                 </jet-nav-link>
                             </div>
                         </div>
@@ -274,6 +279,28 @@
 
             logout() {
                 this.$inertia.post(route('logout'));
+            },
+
+            /*
+            Get Stripe Subscriptions Portal
+            */
+            async getPortal() {
+                
+                // this.$inertia.get('/dashboard/' + data.id, data, {
+                //             preserveScroll: true,
+                //             onSuccess: () => {
+                            
+                //             },
+                //     });
+
+            await axios.get("/billing-portal").then(
+                function (response) {
+                // this.portalUrl = response.data.url;
+                window.location.href = response.data.url;
+                }.bind(this)
+            );
+
+
             },
         }
     }

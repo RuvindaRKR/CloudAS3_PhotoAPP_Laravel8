@@ -34,6 +34,7 @@
                     </p>
                       {{x.likes}} Likes 
 
+                      <!-- Reference: [6]"Array.prototype.some() - JavaScript | MDN", Developer.mozilla.org, 2021. [Online]. Available: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some. [Accessed: 13- Jun- 2021]. -->
                       <p><span v-if="likes.some((y)=> y.photo_id === x.id)">
                           <button class="btn" @click="dislike(x)"><i class="fas fa-heart fa-lg"></i></button>
                       </span>
