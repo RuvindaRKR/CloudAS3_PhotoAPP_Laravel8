@@ -21029,26 +21029,26 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       s3url: 'https://photoappas3.s3-ap-southeast-1.amazonaws.com/',
-      liked: false
+      liked: false,
+      awskey: "AKIAXTI7GYCOCZJDDE6D",
+      awssecret: "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"
     };
   },
   methods: {
     like: function like(data) {
       this.$inertia.put('/dashboard/' + data.id, data, {
         preserveScroll: true,
-        onSuccess: function onSuccess() {// Toast.fire({
-          //     icon:'success',
-          //     title:'Liked Photo Successfully'
-          //   })
-        }
-      }), axios.post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod").then(function (res) {
-        if (res.status === 200) {
+        onSuccess: function onSuccess() {
           Toast.fire({
             icon: 'success',
-            title: 'AWS Success'
+            title: 'Liked Photo Successfully'
           });
         }
-      }.bind(this))["catch"](function (error) {
+      }), axios.post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod/DynamoDBManager", {
+        "operation": "update",
+        "tableName": "photos",
+        "payload": {}
+      })["catch"](function (error) {
         console.log(error);
       });
     },
@@ -27863,18 +27863,7 @@ window.Toast = Swal.mixin({
   position: 'top-right',
   timer: 3500,
   timerProgressBar: true
-}); // window.Toast = Swal.mixin({
-//   toast: true,
-//   position: 'top-end',
-//   showConfirmButton: false,
-//   timer: 3000,
-//   timerProgressBar: true,
-//   didOpen: (toast) => {
-//     toast.addEventListener('mouseenter', Swal.stopTimer)
-//     toast.addEventListener('mouseleave', Swal.resumeTimer)
-//   }
-// })
-
+});
 var el = document.getElementById('app');
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({
   render: function render() {
@@ -27916,9 +27905,9 @@ window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jqu
 __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js"); //Reference : [1]A. Ashik, "How to fix this error : " Module not found :can't resolve popper.js "", Stack Overflow, 2021. [Online]. Available: https://stackoverflow.com/questions/57459917/how-to-fix-this-error-module-not-found-cant-resolve-popper-js. [Accessed: 06- Jun- 2021].
 
 
-__webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js");
+__webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js"); //Reference: [5]A. Khalil and S. Angatia, "how to solve cors Allow Access control in vue js and laravel application", Stack Overflow, 2021. [Online]. Available: https://stackoverflow.com/questions/63537112/how-to-solve-cors-allow-access-control-in-vue-js-and-laravel-application. [Accessed: 13- Jun- 2021].
+//window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

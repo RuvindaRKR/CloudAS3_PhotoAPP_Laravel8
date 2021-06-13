@@ -5,7 +5,6 @@ import { createApp, h } from 'vue';
 import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 
-
 const Swal = require('sweetalert2').default
 
 window.Toast = Swal.mixin({
@@ -15,17 +14,6 @@ window.Toast = Swal.mixin({
     timerProgressBar: true
 })
 
-// window.Toast = Swal.mixin({
-//   toast: true,
-//   position: 'top-end',
-//   showConfirmButton: false,
-//   timer: 3000,
-//   timerProgressBar: true,
-//   didOpen: (toast) => {
-//     toast.addEventListener('mouseenter', Swal.stopTimer)
-//     toast.addEventListener('mouseleave', Swal.resumeTimer)
-//   }
-// })
 
 const el = document.getElementById('app');
 

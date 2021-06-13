@@ -120,6 +120,8 @@ export default {
       return{
               s3url: 'https://photoappas3.s3-ap-southeast-1.amazonaws.com/',
               liked: false,
+              awskey: process.env.MIX_AWS_ACCESS_KEY_ID,
+              awssecret: process.env.MIX_AWS_SECRET_ACCESS_KEY,
 
         }  
   },
@@ -128,28 +130,26 @@ export default {
         this.$inertia.put('/dashboard/' + data.id, data, {
             preserveScroll: true,
             onSuccess: () => {
-            // Toast.fire({
-            //     icon:'success',
-            //     title:'Liked Photo Successfully'
-            //   })
+            Toast.fire({
+                icon:'success',
+                title:'Liked Photo Successfully'
+              })
             },
      }),
 
-     axios
-        .post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod")
-        .then(
-          function (res) {
-          if (res.status === 200) {
-            Toast.fire({
-              icon:'success',
-              title:'AWS Success'
-              })}
-              }
-        .bind(this))
+
+    axios
+        .post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod/DynamoDBManager", 
+        {
+            "operation": "update",
+            "tableName": "photos",
+            "payload": {
+            }
+        })
         .catch(function (error) {
             console.log(error);
         });
-    },
+  },
 
     dislike(data) {
         this.$inertia.delete('/dashboard/' + data.id, data, {
@@ -161,7 +161,7 @@ export default {
               })
             },
      })
-    }
+    },
 
   },
   created(){
