@@ -32,22 +32,14 @@
                     <p class="text-grey-darker tw-text-base">
                       {{x.description}}
                     </p>
-                    <p class="text-grey-darker tw-text-base">
                       {{x.likes}} Likes 
-                      <span class="invisible">{{liked = false}}</span> 
-                      <span v-for="y in likes" :key="y.id">
-                        <span v-if="x.id == y.photo_id">
-                          <span class="invisible">{{liked = true}}</span> 
-                        </span>                 
-                      </span></p>
 
-                      <p><span v-if="liked == true">
+                      <p><span v-if="likes.some((y)=> y.photo_id === x.id)">
                           <button class="btn" @click="dislike(x)"><i class="fas fa-heart fa-lg"></i></button>
                       </span>
                       <span v-else>
                         <button class="btn" @click="like(x)"><i class="far fa-heart fa-lg"></i></button>
-                      </span>
-                    </p>
+                      </span></p>
                   </div>
                   <div class="tw-px-6 tw-py-4">
                     <span
