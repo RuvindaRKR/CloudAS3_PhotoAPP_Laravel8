@@ -59,14 +59,20 @@ class PhotosController extends Controller
 
         $photo->save();
 
+        // $sdk = new Aws\Sdk([
+        //     'region'   => 'ap-southeast-1',
+        //     'version'  => 'latest',
+        //     'credentials' => [
+        //         'key'    => array_key_exists('AWS_ACCESS_KEY_ID', $_SERVER) ? $_SERVER['AWS_ACCESS_KEY_ID'] :env('AWS_ACCESS_KEY_ID'),
+        //         'secret' => array_key_exists('AWS_SECRET_ACCESS_KEY', $_SERVER) ? $_SERVER['AWS_SECRET_ACCESS_KEY'] :env('AWS_SECRET_ACCESS_KEY'),
+        //     ],
+        // ]);
+
         $sdk = new Aws\Sdk([
             'region'   => 'ap-southeast-1',
             'version'  => 'latest',
-            'credentials' => [
-                'key'    => array_key_exists('AWS_ACCESS_KEY_ID', $_SERVER) ? $_SERVER['AWS_ACCESS_KEY_ID'] :env('AWS_ACCESS_KEY_ID'),
-                'secret' => array_key_exists('AWS_SECRET_ACCESS_KEY', $_SERVER) ? $_SERVER['AWS_SECRET_ACCESS_KEY'] :env('AWS_SECRET_ACCESS_KEY'),
-            ],
         ]);
+
 
         $dynamodb = $sdk->createDynamoDb();
         $marshaler = new Marshaler();
@@ -139,14 +145,20 @@ class PhotosController extends Controller
     {
         Photo::find($id)->delete();
 
+        // $sdk = new Aws\Sdk([
+        //     'region'   => 'ap-southeast-1',
+        //     'version'  => 'latest',
+        //     'credentials' => [
+        //         'key'    => array_key_exists('AWS_ACCESS_KEY_ID', $_SERVER) ? $_SERVER['AWS_ACCESS_KEY_ID'] :env('AWS_ACCESS_KEY_ID'),
+        //         'secret' => array_key_exists('AWS_SECRET_ACCESS_KEY', $_SERVER) ? $_SERVER['AWS_SECRET_ACCESS_KEY'] :env('AWS_SECRET_ACCESS_KEY'),
+        //     ],
+        // ]);
+
         $sdk = new Aws\Sdk([
             'region'   => 'ap-southeast-1',
             'version'  => 'latest',
-            'credentials' => [
-                'key'    => array_key_exists('AWS_ACCESS_KEY_ID', $_SERVER) ? $_SERVER['AWS_ACCESS_KEY_ID'] :env('AWS_ACCESS_KEY_ID'),
-                'secret' => array_key_exists('AWS_SECRET_ACCESS_KEY', $_SERVER) ? $_SERVER['AWS_SECRET_ACCESS_KEY'] :env('AWS_SECRET_ACCESS_KEY'),
-            ],
         ]);
+
         
         $dynamodb = $sdk->createDynamoDb();
         $marshaler = new Marshaler();

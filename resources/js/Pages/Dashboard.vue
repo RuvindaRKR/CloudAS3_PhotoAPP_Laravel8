@@ -161,34 +161,38 @@ export default {
     },
 
 
-    like(data) {
-        this.$inertia.put('/dashboard/' + data.id, data, {
+    async like(data) {
+        await this.$inertia.put('/dashboard/' + data.id, data, {
             preserveScroll: true,
             onSuccess: () => {
-            Toast.fire({
-                icon:'success',
-                title:'Liked Photo Successfully'
-              })
-            },
+              this.setData();
+              Toast.fire({
+                  icon:'success',
+                  title:'Liked Photo Successfully'
+                })
+              },
      });
+     this.callAWSAPI();  
 
   },
 
-    dislike(data) {
-        this.$inertia.delete('/dashboard/' + data.id, data, {
+    async dislike(data) {
+        await this.$inertia.delete('/dashboard/' + data.id, data, {
             preserveScroll: true,
             onSuccess: () => {
-            Toast.fire({
-                icon:'success',
-                title:'Disliked Photo Successfully'
-              })
-            },
+              this.setData();
+              Toast.fire({
+                  icon:'success',
+                  title:'Disliked Photo Successfully'
+                })
+              },
      })
+     this.callAWSAPI();  
 
     },
 
-    search() {
-            axios.get('/search', { params: { keyword: this.keyword } })
+    async search() {
+            await axios.get('/search', { params: { keyword: this.keyword } })
                 .then(res => this.Photos = res.data)
                 .catch(error => {});
         },
@@ -198,11 +202,8 @@ export default {
       this.keyword = null;
     },
 
-  },
-  updated(){
-    // axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
-    // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-    axios
+    callAWSAPI() {
+      axios
       .post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod/DynamoDBManager", 
         {
         "operation": "update",
@@ -211,12 +212,18 @@ export default {
         }
         })
       .then(function (res) {
+        this.setData();
         console.log(res);
         }
       .bind(this))
       .catch(function (error) {
          console.log(error);
         });
+    },
+
+  },
+  updated(){
+    this.callAWSAPI();  
     }
 }
 </script>

@@ -21050,17 +21050,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
-/* harmony import */ var _Jetstream_Welcome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/Welcome */ "./resources/js/Jetstream/Welcome.vue");
-/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+/* harmony import */ var _Jetstream_Welcome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Welcome */ "./resources/js/Jetstream/Welcome.vue");
+/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
-    Welcome: _Jetstream_Welcome__WEBPACK_IMPORTED_MODULE_1__.default,
-    JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__.default
+    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__.default,
+    Welcome: _Jetstream_Welcome__WEBPACK_IMPORTED_MODULE_2__.default,
+    JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_3__.default
   },
   props: ['data', 'likes', 'user_id', 'errors'],
   data: function data() {
@@ -21081,55 +21089,113 @@ __webpack_require__.r(__webpack_exports__);
       this.Photos = this.data;
     },
     like: function like(data) {
-      this.$inertia.put('/dashboard/' + data.id, data, {
-        preserveScroll: true,
-        onSuccess: function onSuccess() {
-          Toast.fire({
-            icon: 'success',
-            title: 'Liked Photo Successfully'
-          });
-        }
-      });
-    },
-    dislike: function dislike(data) {
-      this.$inertia["delete"]('/dashboard/' + data.id, data, {
-        preserveScroll: true,
-        onSuccess: function onSuccess() {
-          Toast.fire({
-            icon: 'success',
-            title: 'Disliked Photo Successfully'
-          });
-        }
-      });
-    },
-    search: function search() {
       var _this = this;
 
-      axios.get('/search', {
-        params: {
-          keyword: this.keyword
-        }
-      }).then(function (res) {
-        return _this.Photos = res.data;
-      })["catch"](function (error) {});
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$inertia.put('/dashboard/' + data.id, data, {
+                  preserveScroll: true,
+                  onSuccess: function onSuccess() {
+                    _this.setData();
+
+                    Toast.fire({
+                      icon: 'success',
+                      title: 'Liked Photo Successfully'
+                    });
+                  }
+                });
+
+              case 2:
+                _this.callAWSAPI();
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    dislike: function dislike(data) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$inertia["delete"]('/dashboard/' + data.id, data, {
+                  preserveScroll: true,
+                  onSuccess: function onSuccess() {
+                    _this2.setData();
+
+                    Toast.fire({
+                      icon: 'success',
+                      title: 'Disliked Photo Successfully'
+                    });
+                  }
+                });
+
+              case 2:
+                _this2.callAWSAPI();
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    search: function search() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios.get('/search', {
+                  params: {
+                    keyword: _this3.keyword
+                  }
+                }).then(function (res) {
+                  return _this3.Photos = res.data;
+                })["catch"](function (error) {});
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     },
     reset: function reset() {
       this.setData();
       this.keyword = null;
+    },
+    callAWSAPI: function callAWSAPI() {
+      axios.post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod/DynamoDBManager", {
+        "operation": "update",
+        "tableName": "photos",
+        "payload": {}
+      }).then(function (res) {
+        this.setData();
+        console.log(res);
+      }.bind(this))["catch"](function (error) {
+        console.log(error);
+      });
     }
   },
   updated: function updated() {
-    // axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
-    // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-    axios.post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod/DynamoDBManager", {
-      "operation": "update",
-      "tableName": "photos",
-      "payload": {}
-    }).then(function (res) {
-      console.log(res);
-    }.bind(this))["catch"](function (error) {
-      console.log(error);
-    });
+    this.callAWSAPI();
   }
 });
 

@@ -20,9 +20,12 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $data = Photo::all();
 
+        $data = Photo::all();
         $likes = Likes::where('user_id', $user->id)->get();
+
+        //Get ratings from DynamoDB table
+        self::updateRanking();
 
         return Inertia::render('Dashboard', ['data' => $data, 'likes' => $likes, 'user_id' => $user->id]);
     }
