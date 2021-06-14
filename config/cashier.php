@@ -13,9 +13,9 @@ return [
     |
     */
 
-    'key' => env('STRIPE_KEY'),
+    'key' => array_key_exists('STRIPE_KEY', $_SERVER) ? $_SERVER['STRIPE_KEY'] :env('STRIPE_KEY'),
 
-    'secret' => env('STRIPE_SECRET'),
+    'secret' => array_key_exists('STRIPE_SECRET', $_SERVER) ? $_SERVER['STRIPE_SECRET'] :env('STRIPE_SECRET'),
 
     /*
     |--------------------------------------------------------------------------
@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'currency' => env('CASHIER_CURRENCY', 'usd'),
+    'currency' => array_key_exists('CASHIER_CURRENCY', $_SERVER) ? $_SERVER['CASHIER_CURRENCY'] :env('CASHIER_CURRENCY', 'aud'),
 
     /*
     |--------------------------------------------------------------------------

@@ -27,6 +27,7 @@ class DashboardController extends Controller
         return Inertia::render('Dashboard', ['data' => $data, 'likes' => $likes]);
     }
 
+    // Reference: [6]Positronx.io, 2021. [Online]. Available: https://www.positronx.io/create-live-search-in-laravel-vue-js-application/. [Accessed: 14- Jun- 2021].
     public function searchPhotos(Request $request)
     {
         $data = Photo::where('title', 'LIKE','%'.$request->keyword.'%')->get();
