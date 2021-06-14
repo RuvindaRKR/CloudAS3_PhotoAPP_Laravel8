@@ -17,7 +17,7 @@ require('bootstrap');
 require('popper.js');
 
 //Reference: [5]A. Khalil and S. Angatia, "how to solve cors Allow Access control in vue js and laravel application", Stack Overflow, 2021. [Online]. Available: https://stackoverflow.com/questions/63537112/how-to-solve-cors-allow-access-control-in-vue-js-and-laravel-application. [Accessed: 13- Jun- 2021].
-//window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

@@ -31,11 +31,11 @@
                                     Billing Portal
                                 </jet-nav-link>
                             </div>
-                            <div class="tw-hidden tw-space-x-8 sm:tw--my-px sm:tw-ml-10 sm:tw-flex">
+                            <!-- <div class="tw-hidden tw-space-x-8 sm:tw--my-px sm:tw-ml-10 sm:tw-flex">
                                 <jet-nav-link :href="route('billing-portal')">
                                     Billing Portal1
                                 </jet-nav-link>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="tw-hidden sm:tw-flex sm:tw-items-center sm:tw-ml-6">

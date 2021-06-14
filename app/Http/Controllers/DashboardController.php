@@ -27,6 +27,12 @@ class DashboardController extends Controller
         return Inertia::render('Dashboard', ['data' => $data, 'likes' => $likes]);
     }
 
+    public function searchPhotos(Request $request)
+    {
+        $data = Photo::where('title', 'LIKE','%'.$request->keyword.'%')->get();
+        return response()->json($data); 
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -47,13 +53,17 @@ class DashboardController extends Controller
         $like->photo_id = $id;
         $like->save();
 
+        // $sdk = new Aws\Sdk([
+        //     'region'   => 'ap-southeast-1',
+        //     'version'  => 'latest',
+        //     'credentials' => [
+        //         'key'    => array_key_exists('AWS_ACCESS_KEY_ID', $_SERVER) ? $_SERVER['AWS_ACCESS_KEY_ID'] :env('AWS_ACCESS_KEY_ID'),
+        //         'secret' => array_key_exists('AWS_SECRET_ACCESS_KEY', $_SERVER) ? $_SERVER['AWS_SECRET_ACCESS_KEY'] :env('AWS_SECRET_ACCESS_KEY'),
+        //     ],
+        // ]);
         $sdk = new Aws\Sdk([
             'region'   => 'ap-southeast-1',
             'version'  => 'latest',
-            'credentials' => [
-                'key'    => array_key_exists('AWS_ACCESS_KEY_ID', $_SERVER) ? $_SERVER['AWS_ACCESS_KEY_ID'] :env('AWS_ACCESS_KEY_ID'),
-                'secret' => array_key_exists('AWS_SECRET_ACCESS_KEY', $_SERVER) ? $_SERVER['AWS_SECRET_ACCESS_KEY'] :env('AWS_SECRET_ACCESS_KEY'),
-            ],
         ]);
 
         $dynamodb = $sdk->createDynamoDb();
@@ -101,14 +111,10 @@ class DashboardController extends Controller
             ->where('user_id', '=', $user->id)
             ->delete();
 
-        $sdk = new Aws\Sdk([
-            'region'   => 'ap-southeast-1',
-            'version'  => 'latest',
-            'credentials' => [
-                'key'    => array_key_exists('AWS_ACCESS_KEY_ID', $_SERVER) ? $_SERVER['AWS_ACCESS_KEY_ID'] :env('AWS_ACCESS_KEY_ID'),
-                'secret' => array_key_exists('AWS_SECRET_ACCESS_KEY', $_SERVER) ? $_SERVER['AWS_SECRET_ACCESS_KEY'] :env('AWS_SECRET_ACCESS_KEY'),
-            ],
-        ]);
+            $sdk = new Aws\Sdk([
+                'region'   => 'ap-southeast-1',
+                'version'  => 'latest',
+            ]);
 
         $dynamodb = $sdk->createDynamoDb();
         $marshaler = new Marshaler();
@@ -150,10 +156,6 @@ class DashboardController extends Controller
         $sdk = new Aws\Sdk([
             'region'   => 'ap-southeast-1',
             'version'  => 'latest',
-            'credentials' => [
-                'key'    => array_key_exists('AWS_ACCESS_KEY_ID', $_SERVER) ? $_SERVER['AWS_ACCESS_KEY_ID'] : env('AWS_ACCESS_KEY_ID'),
-                'secret' => array_key_exists('AWS_SECRET_ACCESS_KEY', $_SERVER) ? $_SERVER['AWS_SECRET_ACCESS_KEY'] : env('AWS_SECRET_ACCESS_KEY'),
-            ],
         ]);
 
         $dynamodb = $sdk->createDynamoDb();
@@ -181,5 +183,7 @@ class DashboardController extends Controller
         } catch (DynamoDbException $e) {
             echo $e->getMessage() . "\n";
         }
+
+
     }
 }

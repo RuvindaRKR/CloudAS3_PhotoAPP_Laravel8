@@ -9,6 +9,19 @@
         <div class="tw-bg-white tw-overflow-hidden tw-shadow-xl sm:tw-rounded-lg">
           <body class="tw-bg-gray-100 tw-text-gray-700 tw-font-sans quicksand">
             <div class="tw-p-16">
+
+              <div class="tw-p-8">
+                <div class="tw-bg-white tw-flex tw-items-center tw-rounded-full tw-shadow-xl">
+                  <input v-model="keyword" class="tw-rounded-l-full tw-w-full tw-py-4 tw-px-6 tw-text-gray-700 tw-leading-tight focus:tw-outline-none" id="keyword" type="text" placeholder="Search">
+                  <div class="tw-p-4">
+                    <button v-on:click="search()" class="tw-bg-blue-500 tw-text-white tw-rounded-full tw-p-2 hover:tw-bg-blue-400 focus:tw-outline-none tw-w-12 tw-h-12 tw-flex tw-items-center tw-justify-center">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <jet-button v-on:click="reset()" class="mt-4">Reset</jet-button>
+              </div>
+              
               <div
                 class="
                   tw-grid
@@ -19,8 +32,8 @@
                   tw-mb-10
                 "
               >
-              
-                <span v-for="x in data" :key="x.id">
+
+                <span v-for="x in Photos" :key="x.id">
                   <div class="tw-max-w-xs tw-rounded tw-overflow-hidden tw-shadow-lg tw-my-2">
                   <img
                     class="tw-w-full"
@@ -115,11 +128,13 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import Welcome from "@/Jetstream/Welcome";
+import JetButton from '../Jetstream/Button';
 
 export default {
   components: {
     AppLayout,
     Welcome,
+    JetButton,
   },
 
   props: ['data', 'likes', 'errors'],
@@ -130,10 +145,20 @@ export default {
               liked: false,
               awskey: process.env.MIX_AWS_ACCESS_KEY_ID,
               awssecret: process.env.MIX_AWS_SECRET_ACCESS_KEY,
-
+              keyword: null,
+              Photos: [],
         }  
   },
+  mounted() {
+    this.setData();
+  },
+
   methods:{
+    setData(){
+      this.Photos = this.data;
+    },
+
+
     like(data) {
         this.$inertia.put('/dashboard/' + data.id, data, {
             preserveScroll: true,
@@ -160,23 +185,36 @@ export default {
 
     },
 
+    search() {
+            axios.get('/search', { params: { keyword: this.keyword } })
+                .then(res => this.Photos = res.data)
+                .catch(error => {});
+        },
+
+    reset() {
+      this.setData();
+      this.keyword = null;
+    },
+
   },
   updated(){
-            axios
-            .post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod/DynamoDBManager", 
-            {
-                "operation": "update",
-                "tableName": "photos",
-                "payload": {
-                }
-            })
-            .then(function (res) {
-              console.log(res);
-             }
-            .bind(this))
-            .catch(function (error) {
-                console.log(error);
-            });
+    // axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
+    // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+    axios
+      .post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod/DynamoDBManager", 
+        {
+        "operation": "update",
+        "tableName": "photos",
+        "payload": {
         }
+        })
+      .then(function (res) {
+        console.log(res);
+        }
+      .bind(this))
+      .catch(function (error) {
+         console.log(error);
+        });
+    }
 }
 </script>
