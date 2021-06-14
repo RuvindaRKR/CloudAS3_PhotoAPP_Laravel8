@@ -21062,7 +21062,7 @@ __webpack_require__.r(__webpack_exports__);
     Welcome: _Jetstream_Welcome__WEBPACK_IMPORTED_MODULE_1__.default,
     JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__.default
   },
-  props: ['data', 'likes', 'errors'],
+  props: ['data', 'likes', 'user_id', 'errors'],
   data: function data() {
     return {
       s3url: 'https://photoappas3.s3-ap-southeast-1.amazonaws.com/',
@@ -25416,18 +25416,21 @@ var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 var _hoisted_19 = {
   key: 1
 };
+var _hoisted_20 = {
+  key: 0
+};
 
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "far fa-heart fa-lg"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_21 = {
+var _hoisted_22 = {
   "class": "\n                        tw-inline-block\n                        bg-grey-lighter\n                        tw-rounded-full\n                        tw-px-3\n                        tw-py-1\n                        tw-text-sm\n                        tw-font-semibold\n                        text-grey-darker\n                        tw-mr-2\n                      "
 };
 
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
   "class": "tw-px-6 tw-py-4"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
   "class": "\n                        tw-inline-block\n                        bg-grey-lighter\n                        tw-rounded-full\n                        tw-px-3\n                        tw-py-1\n                        tw-text-sm\n                        tw-font-semibold\n                        text-grey-darker\n                        tw-mr-2\n                      "
@@ -25500,16 +25503,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }
         }, [_hoisted_18], 8
         /* PROPS */
-        , ["onClick"])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+        , ["onClick"])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_19, [$props.user_id != x.user_id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
           "class": "btn",
           onClick: function onClick($event) {
             return $options.like(x);
           }
-        }, [_hoisted_20], 8
+        }, [_hoisted_21], 8
         /* PROPS */
-        , ["onClick"])]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_21, "#rank " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(x.rank), 1
+        , ["onClick"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_22, "#rank " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(x.rank), 1
         /* TEXT */
-        )]), _hoisted_22])]);
+        )]), _hoisted_23])]);
       }), 128
       /* KEYED_FRAGMENT */
       ))])])])])])])];

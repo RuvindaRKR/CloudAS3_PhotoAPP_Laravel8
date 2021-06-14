@@ -20,11 +20,11 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $data = Photo::where('user_id', '!=', $user->id)->orWhereNull('user_id')->get();
+        $data = Photo::all();
 
         $likes = Likes::where('user_id', $user->id)->get();
 
-        return Inertia::render('Dashboard', ['data' => $data, 'likes' => $likes]);
+        return Inertia::render('Dashboard', ['data' => $data, 'likes' => $likes, 'user_id' => $user->id]);
     }
 
     // Reference: [6]Positronx.io, 2021. [Online]. Available: https://www.positronx.io/create-live-search-in-laravel-vue-js-application/. [Accessed: 14- Jun- 2021].

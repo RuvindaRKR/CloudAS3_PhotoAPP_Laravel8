@@ -52,7 +52,9 @@
                           <button class="btn" @click="dislike(x)"><i class="fas fa-heart fa-lg"></i></button>
                       </span>
                       <span v-else>
-                        <button class="btn" @click="like(x)"><i class="far fa-heart fa-lg"></i></button>
+                        <span v-if="user_id != x.user_id">
+                          <button class="btn" @click="like(x)"><i class="far fa-heart fa-lg"></i></button>
+                        </span>
                       </span></p>
 
                       <span
@@ -137,7 +139,7 @@ export default {
     JetButton,
   },
 
-  props: ['data', 'likes', 'errors'],
+  props: ['data', 'likes', 'user_id', 'errors'],
 
   data(){
       return{

@@ -76,8 +76,9 @@ class PhotosController extends Controller
         $json = json_encode([
             'id' => strval($photo->id),
             'email' => $user->email,
-            'likes' => 0,
+            'likes' => 0,            
             'user_id' => $user->id,
+            'ranking' => 0,
         ]);
     
         $params = [
