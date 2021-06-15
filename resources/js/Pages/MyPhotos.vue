@@ -88,7 +88,7 @@
                                 </tr>
                             </thead>
                             <tbody class="tw-bg-white tw-divide-y tw-divide-gray-200">
-                                <tr v-for="x in data" :key="x.id">
+                                <tr v-for="x in photoData.data" :key="x.id">
                                 <td class="tw-px-6 tw-py-4 tw-whitespace-nowrap">
                                     <div class="tw-flex tw-items-center">
                                         <div class="tw-flex-shrink-0 tw-h-10 tw-w-10">
@@ -144,6 +144,7 @@
                                 </tr>
                             </tbody>
                             </table>
+                            <pagination :links="photoData.links" />
                         </div>
                         </div>
                     </div>
@@ -157,13 +158,15 @@
 
 <script>
     import AppLayout from '@/Layouts/AppLayout'
+    import Pagination from '@/Components/Pagination'
 
     export default {
         components: {
             AppLayout,
+            Pagination,
         },
 
-        props: ['data', 'errors'],
+        props: ['photoData', 'errors'],
 
         data(){
             

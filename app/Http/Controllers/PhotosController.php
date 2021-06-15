@@ -28,8 +28,8 @@ class PhotosController extends Controller
     {
         //$data = Photo::all();
         $user = $request->user();
-        $data = Photo::where('user_id', $user->id)->get();
-        return Inertia::render('MyPhotos', ['data' => $data]);
+        $data = Photo::where('user_id', $user->id)->paginate(5);
+        return Inertia::render('MyPhotos', ['photoData' => $data]);
     }
 
     /**
