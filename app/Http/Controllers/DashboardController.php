@@ -21,7 +21,7 @@ class DashboardController extends Controller
     {
         $user = $request->user();
 
-        $data = Photo::all();
+        $data = Photo::orderBy('created_at', 'desc')->get();
         $likes = Likes::where('user_id', $user->id)->get();
 
         //Get ratings from DynamoDB table
