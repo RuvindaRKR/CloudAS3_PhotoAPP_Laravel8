@@ -6,8 +6,6 @@ use Inertia\Inertia;
 use App\Http\Controllers\PhotosController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManageSubscriptionController;
-use App\Http\Controllers\WebhookController;
-use App\Http\Controllers\CommentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +39,5 @@ Route::middleware(['auth:sanctum', 'verified', 'billing'])->group(function() {
     Route::get('/billing-portal', [ManageSubscriptionController::class, 'getPortal'])->name('billing-portal');
 });
 
-// Route::post('/stripe/webhook', WebhookController::class)->name('cashier.webhook');
 
 

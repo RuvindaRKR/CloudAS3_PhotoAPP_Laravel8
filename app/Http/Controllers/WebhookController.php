@@ -19,6 +19,17 @@ use Laravel\Cashier\Http\Controllers\WebhookController as CashierController;
 
 class WebhookController extends CashierController
 {
+    /**
+     * Create a new WebhookController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        if (config('cashier.webhook.secret')) {
+            $this->middleware(VerifyWebhookSignature::class);
+        }
+    }
 
     /**
      * Handle a Stripe webhook call.
