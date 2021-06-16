@@ -31,11 +31,6 @@
                                     Billing Portal
                                 </jet-nav-link>
                             </div>
-                            <!-- <div class="tw-hidden tw-space-x-8 sm:tw--my-px sm:tw-ml-10 sm:tw-flex">
-                                <jet-nav-link :href="route('billing-portal')">
-                                    Billing Portal1
-                                </jet-nav-link>
-                            </div> -->
                         </div>
 
                         <div class="tw-hidden sm:tw-flex sm:tw-items-center sm:tw-ml-6">
@@ -284,23 +279,8 @@
             /*
             Get Stripe Subscriptions Portal
             */
-            async getPortal() {
-                
-                // this.$inertia.get('/dashboard/' + data.id, data, {
-                //             preserveScroll: true,
-                //             onSuccess: () => {
-                            
-                //             },
-                //     });
-
-            await axios.get("/billing-portal").then(
-                function (response) {
-                // this.portalUrl = response.data.url;
-                window.location.href = response.data.url;
-                }.bind(this)
-            );
-
-
+            getPortal() {
+                this.$inertia.get('/billing-portal');
             },
         }
     }

@@ -19,7 +19,9 @@
                     </button>
                   </div>
                 </div>
-                <jet-button v-on:click="reset()" class="mt-4">Reset</jet-button>
+                <jet-button v-on:click="reset()" class="mt-4">Reset</jet-button><span class="invisible">"  "</span>
+                <jet-button v-on:click="sortByRank()" class="mt-4">Sort By Rank</jet-button>
+
               </div>
               
               <div
@@ -33,7 +35,7 @@
                 "
               >
 
-                <span v-for="x in Photos" :key="x.id">
+                <span v-for="x in PhotoData" :key="x.id">
                   <div class="tw-max-w-xs tw-rounded tw-overflow-hidden tw-shadow-lg tw-my-2">
                   <img
                     class="tw-w-full"
@@ -139,7 +141,7 @@ export default {
     JetButton,
   },
 
-  props: ['data', 'likes', 'user_id', 'errors'],
+  props: ['PhotoData', 'likes', 'user_id', 'errors'],
 
   data(){
       return{
@@ -148,31 +150,20 @@ export default {
               awskey: process.env.MIX_AWS_ACCESS_KEY_ID,
               awssecret: process.env.MIX_AWS_SECRET_ACCESS_KEY,
               keyword: null,
-              Photos: [],
         }  
-  },
-  mounted() {
-    this.setData();
   },
 
   methods:{
-    setData(){
-      this.Photos = this.data;
-    },
-
-
     async like(data) {
         await this.$inertia.put('/dashboard/' + data.id, data, {
             preserveScroll: true,
             onSuccess: () => {
-              this.setData();
               Toast.fire({
                   icon:'success',
                   title:'Liked Photo Successfully'
                 })
               },
-     });
-     this.callAWSAPI();  
+        })
 
   },
 
@@ -180,39 +171,52 @@ export default {
         await this.$inertia.delete('/dashboard/' + data.id, data, {
             preserveScroll: true,
             onSuccess: () => {
-              this.setData();
               Toast.fire({
                   icon:'success',
                   title:'Disliked Photo Successfully'
                 })
               },
-     })
-     this.callAWSAPI();  
+        })
 
     },
 
     async search() {
-            await axios.get('/search', { params: { keyword: this.keyword } })
-                .then(res => this.Photos = res.data)
-                .catch(error => {});
+        await this.$inertia.get('/search', {
+            keyword: this.keyword,
+            preserveScroll: true,
+            preserveState: true,
+          })
+        },
+    
+    async sortByRank() {
+        await this.$inertia.get('/sortbyrank', {
+            keyword: this.keyword,
+            preserveScroll: true,
+            preserveState: true,
+          })  
         },
 
-    reset() {
-      this.setData();
-      this.keyword = null;
+    async reset() {
+        await this.$inertia.get('/dashboard', {
+            keyword: this.keyword,
+            preserveScroll: true,
+            preserveState: true,
+            onSuccess: () => {
+              this.keyword = null;
+            },
+          })
     },
 
     callAWSAPI() {
       axios
       .post("https://5nkk1o3bbk.execute-api.ap-southeast-1.amazonaws.com/prod/DynamoDBManager", 
         {
-        "operation": "update",
-        "tableName": "photos",
-        "payload": {
-        }
+          "operation": "update",
+          "tableName": "photos",
+          "payload": {
+          }
         })
       .then(function (res) {
-        this.setData();
         console.log(res);
         }
       .bind(this))
@@ -223,7 +227,7 @@ export default {
 
   },
   updated(){
-    this.callAWSAPI();  
+      this.callAWSAPI();  
     }
 }
 </script>

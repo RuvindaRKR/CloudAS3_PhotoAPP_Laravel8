@@ -29,9 +29,6 @@ class ManageSubscriptionController extends Controller
             'checkoutSessionId' => $checkout->id
         ]);
 
-        // return Inertia::render('ManageSubscription', [
-        //     'checkout' => $checkout,
-        // ]);
     }
 
     public function getPortal(Request $request)
@@ -44,12 +41,7 @@ class ManageSubscriptionController extends Controller
             'return_url' => route('dashboard.index'),
         ]);
 
-        // return redirect($portal->url);
-        // return redirect()->away($portal->url);
-        
-        return response()->json([
-            'url' => $portal->url
-        ]);
+        return Inertia::location($portal->url);
     }
 
 }

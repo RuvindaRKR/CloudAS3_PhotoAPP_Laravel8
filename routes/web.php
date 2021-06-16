@@ -6,8 +6,8 @@ use Inertia\Inertia;
 use App\Http\Controllers\PhotosController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManageSubscriptionController;
+use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\CommentsController;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,16 +31,16 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::resource('/dashboard', DashboardController::class);
-    Route::get('/search', [DashboardController::class, 'searchPhotos'])->name('search');;
+    Route::get('/search', [DashboardController::class, 'searchPhotos'])->name('search');
+    Route::get('/sortbyrank', [DashboardController::class, 'sortByRank'])->name('sortbyrank');
+    Route::get('/subscription', ManageSubscriptionController::class)->name('subscription');
 });
 
 Route::middleware(['auth:sanctum', 'verified', 'billing'])->group(function() {
     Route::resource('/photos', PhotosController::class);
-    // Route::get('/billing-portal', function (Request $request) {
-    //     return $request->user()->redirectToBillingPortal()->name('billing-portal');
-    // });
     Route::get('/billing-portal', [ManageSubscriptionController::class, 'getPortal'])->name('billing-portal');
 });
 
-Route::get('/subscription', ManageSubscriptionController::class)->name('subscription');
+// Route::post('/stripe/webhook', WebhookController::class)->name('cashier.webhook');
+
 

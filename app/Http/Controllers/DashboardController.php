@@ -20,21 +20,32 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-
-        $data = Photo::orderBy('created_at', 'desc')->get();
+        $PhotoData = Photo::orderBy('created_at', 'desc')->get();
         $likes = Likes::where('user_id', $user->id)->get();
-
-        //Get ratings from DynamoDB table
         self::updateRanking();
 
-        return Inertia::render('Dashboard', ['data' => $data, 'likes' => $likes, 'user_id' => $user->id]);
+        return Inertia::render('Dashboard', ['PhotoData' => $PhotoData, 'likes' => $likes, 'user_id' => $user->id]);
     }
 
     // Reference: [6]Positronx.io, 2021. [Online]. Available: https://www.positronx.io/create-live-search-in-laravel-vue-js-application/. [Accessed: 14- Jun- 2021].
     public function searchPhotos(Request $request)
     {
-        $data = Photo::where('title', 'LIKE','%'.$request->keyword.'%')->get();
-        return response()->json($data); 
+        $user = $request->user();
+        $PhotoData = Photo::where('title', 'LIKE','%'.$request->keyword.'%')->get();
+        $likes = Likes::where('user_id', $user->id)->get();
+        self::updateRanking();
+
+        return Inertia::render('Dashboard', ['PhotoData' => $PhotoData, 'likes' => $likes, 'user_id' => $user->id]);
+    }
+
+    public function sortByRank(Request $request)
+    {
+        $user = $request->user();
+        $likes = Likes::where('user_id', $user->id)->get();
+        $PhotoData = Photo::orderBy('rank', 'asc')->get();
+        self::updateRanking();
+
+        return Inertia::render('Dashboard', ['PhotoData' => $PhotoData, 'likes' => $likes, 'user_id' => $user->id]);
     }
 
     /**
@@ -146,8 +157,6 @@ class DashboardController extends Controller
 
         //Get ratings from DynamoDB table
         self::updateRanking();
-
-
 
         return redirect()->back()
             ->with('message', 'Disliked Photo Successfully.');
