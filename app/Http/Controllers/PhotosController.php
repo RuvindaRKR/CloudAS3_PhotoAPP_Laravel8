@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 // Reference: [1]"Step 5: Query and Scan the Data - Amazon DynamoDB", Docs.aws.amazon.com, 2021. [Online]. Available: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.PHP.04.html#GettingStarted.PHP.04.Query.02. [Accessed: 28- Apr- 2021].
 use Aws\DynamoDb\Exception\DynamoDbException;
@@ -142,7 +143,9 @@ class PhotosController extends Controller
      */
     public function destroy($id)
     {
-        Photo::find($id)->delete();
+        $photo = Photo::find($id);
+        Storage::disk('s3')->delete($photo->photo_path);
+        $photo->delete();
 
         $sdk = new Aws\Sdk([
             'region'   => 'ap-southeast-1',
