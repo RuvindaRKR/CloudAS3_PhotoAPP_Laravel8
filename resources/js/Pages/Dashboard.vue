@@ -153,6 +153,10 @@ export default {
         }  
   },
 
+  mounted(){
+      this.callAWSAPI();  
+    },
+
   methods:{
     async like(data) {
         await this.$inertia.put('/dashboard/' + data.id, data, {
@@ -228,6 +232,6 @@ export default {
   },
   updated(){
       this.callAWSAPI();  
-    }
+    },
 }
 </script>

@@ -21072,6 +21072,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       keyword: null
     };
   },
+  mounted: function mounted() {
+    this.callAWSAPI();
+  },
   methods: {
     like: function like(data) {
       var _this = this;
