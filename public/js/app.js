@@ -21065,15 +21065,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: ['PhotoData', 'likes', 'user_id', 'errors'],
   data: function data() {
     return {
-      s3url: 'https://photoappas3.s3-ap-southeast-1.amazonaws.com/',
+      s3url: 'https://photoappas31.s3-ap-southeast-1.amazonaws.com/',
       liked: false,
-      awskey: "AKIAXTI7GYCOCZJDDE6D",
-      awssecret: "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",
+      awskey: "AKIA2V6ZSUQOUYKSN4VN",
+      awssecret: "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",
       keyword: null
     };
   },
-  mounted: function mounted() {
-    this.callAWSAPI();
+  mounted: function mounted() {// this.callAWSAPI();  
   },
   methods: {
     like: function like(data) {
@@ -21214,8 +21213,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     }
   },
-  updated: function updated() {
-    this.callAWSAPI();
+  updated: function updated() {// this.callAWSAPI();  
   }
 });
 
@@ -21298,7 +21296,7 @@ __webpack_require__.r(__webpack_exports__);
         description: null
       },
       photoPreview: null,
-      s3url: 'https://photoappas3.s3-ap-southeast-1.amazonaws.com/'
+      s3url: 'https://photoappas31.s3-ap-southeast-1.amazonaws.com/'
     };
   },
   methods: {
@@ -25720,7 +25718,7 @@ var _hoisted_6 = {
   "class": "tw-p-16"
 };
 var _hoisted_7 = {
-  "class": "\r\n                  tw-grid\r\n                  md:tw-grid-cols-2\r\n                  sm:tw-grid-cols-1\r\n                  lg:tw-grid-cols-3\r\n                  tw-m-5\r\n                  tw-mb-10\r\n                "
+  "class": "\n                  tw-grid\n                  md:tw-grid-cols-2\n                  sm:tw-grid-cols-1\n                  lg:tw-grid-cols-3\n                  tw-m-5\n                  tw-mb-10\n                "
 };
 
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", {

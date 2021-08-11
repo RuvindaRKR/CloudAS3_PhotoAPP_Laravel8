@@ -145,7 +145,7 @@ export default {
 
   data(){
       return{
-              s3url: 'https://photoappas3.s3-ap-southeast-1.amazonaws.com/',
+              s3url: 'https://photoappas31.s3-ap-southeast-1.amazonaws.com/',
               liked: false,
               awskey: process.env.MIX_AWS_ACCESS_KEY_ID,
               awssecret: process.env.MIX_AWS_SECRET_ACCESS_KEY,
@@ -154,7 +154,7 @@ export default {
   },
 
   mounted(){
-      this.callAWSAPI();  
+      // this.callAWSAPI();  
     },
 
   methods:{
@@ -231,7 +231,7 @@ export default {
 
   },
   updated(){
-      this.callAWSAPI();  
+      // this.callAWSAPI();  
     },
 }
 </script>

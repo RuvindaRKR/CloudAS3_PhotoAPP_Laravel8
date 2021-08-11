@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $user = $request->user();
         $PhotoData = Photo::orderBy('created_at', 'desc')->get();
         $likes = Likes::where('user_id', $user->id)->get();
-        self::updateRanking();
+        // self::updateRanking();
 
         return Inertia::render('Dashboard', ['PhotoData' => $PhotoData, 'likes' => $likes, 'user_id' => $user->id]);
     }
@@ -33,7 +33,7 @@ class DashboardController extends Controller
         $user = $request->user();
         $PhotoData = Photo::where('title', 'LIKE','%'.$request->keyword.'%')->get();
         $likes = Likes::where('user_id', $user->id)->get();
-        self::updateRanking();
+        // self::updateRanking();
 
         return Inertia::render('Dashboard', ['PhotoData' => $PhotoData, 'likes' => $likes, 'user_id' => $user->id]);
     }
@@ -43,7 +43,7 @@ class DashboardController extends Controller
         $user = $request->user();
         $likes = Likes::where('user_id', $user->id)->get();
         $PhotoData = Photo::orderBy('rank', 'asc')->get();
-        self::updateRanking();
+        // self::updateRanking();
 
         return Inertia::render('Dashboard', ['PhotoData' => $PhotoData, 'likes' => $likes, 'user_id' => $user->id]);
     }
@@ -76,36 +76,36 @@ class DashboardController extends Controller
         //         'secret' => array_key_exists('AWS_SECRET_ACCESS_KEY', $_SERVER) ? $_SERVER['AWS_SECRET_ACCESS_KEY'] :env('AWS_SECRET_ACCESS_KEY'),
         //     ],
         // ]);
-        $sdk = new Aws\Sdk([
-            'region'   => 'ap-southeast-1',
-            'version'  => 'latest',
-        ]);
+        // $sdk = new Aws\Sdk([
+        //     'region'   => 'ap-southeast-1',
+        //     'version'  => 'latest',
+        // ]);
 
-        $dynamodb = $sdk->createDynamoDb();
-        $marshaler = new Marshaler();
+        // $dynamodb = $sdk->createDynamoDb();
+        // $marshaler = new Marshaler();
 
-        $tableName = 'photos';
+        // $tableName = 'photos';
 
-        $key = $marshaler->marshalJson('{"id": "' . $id . '"}');
+        // $key = $marshaler->marshalJson('{"id": "' . $id . '"}');
 
-        $eav = $marshaler->marshalJson('{":val": 1}');
+        // $eav = $marshaler->marshalJson('{":val": 1}');
 
-        $params = [
-            'TableName' => $tableName,
-            'Key' => $key,
-            'UpdateExpression' => 'set likes = likes + :val',
-            'ExpressionAttributeValues' => $eav,
-            'ReturnValues' => 'UPDATED_NEW'
-        ];
+        // $params = [
+        //     'TableName' => $tableName,
+        //     'Key' => $key,
+        //     'UpdateExpression' => 'set likes = likes + :val',
+        //     'ExpressionAttributeValues' => $eav,
+        //     'ReturnValues' => 'UPDATED_NEW'
+        // ];
 
-        try {
-            $dynamodb->updateItem($params);
-        } catch (DynamoDbException $e) {
-            echo $e->getMessage() . "\n";
-        }
+        // try {
+        //     $dynamodb->updateItem($params);
+        // } catch (DynamoDbException $e) {
+        //     echo $e->getMessage() . "\n";
+        // }
 
         //Get ratings from DynamoDB table
-        self::updateRanking();
+        // self::updateRanking();
 
         return redirect()->back()
             ->with('message', 'Liked Photo Successfully.');
@@ -135,28 +135,28 @@ class DashboardController extends Controller
         $marshaler = new Marshaler();
 
         //Add like to DynamoDB table
-        $tableName = 'photos';
+        // $tableName = 'photos';
 
-        $key = $marshaler->marshalJson('{"id": "' . $id . '"}');
+        // $key = $marshaler->marshalJson('{"id": "' . $id . '"}');
 
-        $eav = $marshaler->marshalJson('{":val": 1}');
+        // $eav = $marshaler->marshalJson('{":val": 1}');
 
-        $params = [
-            'TableName' => $tableName,
-            'Key' => $key,
-            'UpdateExpression' => 'set likes = likes - :val',
-            'ExpressionAttributeValues' => $eav,
-            'ReturnValues' => 'UPDATED_NEW'
-        ];
+        // $params = [
+        //     'TableName' => $tableName,
+        //     'Key' => $key,
+        //     'UpdateExpression' => 'set likes = likes - :val',
+        //     'ExpressionAttributeValues' => $eav,
+        //     'ReturnValues' => 'UPDATED_NEW'
+        // ];
 
-        try {
-            $dynamodb->updateItem($params);
-        } catch (DynamoDbException $e) {
-            echo $e->getMessage() . "\n";
-        }
+        // try {
+        //     $dynamodb->updateItem($params);
+        // } catch (DynamoDbException $e) {
+        //     echo $e->getMessage() . "\n";
+        // }
 
         //Get ratings from DynamoDB table
-        self::updateRanking();
+        // self::updateRanking();
 
         return redirect()->back()
             ->with('message', 'Disliked Photo Successfully.');
@@ -166,37 +166,38 @@ class DashboardController extends Controller
     {
         //Get ratings from DynamoDB table
 
-        $sdk = new Aws\Sdk([
-            'region'   => 'ap-southeast-1',
-            'version'  => 'latest',
-        ]);
+        // $sdk = new Aws\Sdk([
+        //     'region'   => 'ap-southeast-1',
+        //     'version'  => 'latest',
+        // ]);
 
-        $dynamodb = $sdk->createDynamoDb();
-        $marshaler = new Marshaler();
+        // $dynamodb = $sdk->createDynamoDb();
+        // $marshaler = new Marshaler();
 
-        $tableName = 'photos';
+        // $tableName = 'photos';
 
-        $params = [
-            'TableName' => $tableName,
-        ];
+        // $params = [
+        //     'TableName' => $tableName,
+        // ];
 
-        $result = $dynamodb->scan($params);
+        // $result = $dynamodb->scan($params);
 
-            if (!empty($result['Items'])) {
-                foreach($result['Items'] as $i){
-                    $dynamoPhotos = $marshaler->unmarshalItem($i);
-                    $photo = Photo::find($dynamoPhotos['id']);
-                    $photo->rank = $dynamoPhotos['ranking'];
-                    $photo->save();
-                }
-            }
+        //     if (!empty($result['Items'])) {
+        //         foreach($result['Items'] as $i){
+        //             $dynamoPhotos = $marshaler->unmarshalItem($i);
+        //             $photo = Photo::find($dynamoPhotos['id']);
+        //             $photo->rank = $dynamoPhotos['ranking'];
+        //             $photo->save();
+        //         }
+        //     }
 
-        try {
+        // try {
             
-        } catch (DynamoDbException $e) {
-            echo $e->getMessage() . "\n";
-        }
+        // } catch (DynamoDbException $e) {
+        //     echo $e->getMessage() . "\n";
+        // }
 
 
+        
     }
 }

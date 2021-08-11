@@ -69,34 +69,34 @@ class PhotosController extends Controller
         //     ],
         // ]);
 
-        $sdk = new Aws\Sdk([
-            'region'   => 'ap-southeast-1',
-            'version'  => 'latest',
-        ]);
+        // $sdk = new Aws\Sdk([
+        //     'region'   => 'ap-southeast-1',
+        //     'version'  => 'latest',
+        // ]);
 
-        $dynamodb = $sdk->createDynamoDb();
-        $marshaler = new Marshaler();
+        // $dynamodb = $sdk->createDynamoDb();
+        // $marshaler = new Marshaler();
 
-        $tableName = 'photos';
+        // $tableName = 'photos';
 
-        $json = json_encode([
-            'id' => strval($photo->id),
-            'email' => $user->email,
-            'likes' => 0,            
-            'user_id' => $user->id,
-            'ranking' => 0,
-        ]);
+        // $json = json_encode([
+        //     'id' => strval($photo->id),
+        //     'email' => $user->email,
+        //     'likes' => 0,            
+        //     'user_id' => $user->id,
+        //     'ranking' => 0,
+        // ]);
     
-        $params = [
-            'TableName' => $tableName,
-            'Item' => $marshaler->marshalJson($json)
-        ];
+        // $params = [
+        //     'TableName' => $tableName,
+        //     'Item' => $marshaler->marshalJson($json)
+        // ];
     
-        try {
-            $dynamodb->putItem($params);
-        } catch (DynamoDbException $e) {
-            echo $e->getMessage() . "\n";
-        }
+        // try {
+        //     $dynamodb->putItem($params);
+        // } catch (DynamoDbException $e) {
+        //     echo $e->getMessage() . "\n";
+        // }
 
         // return response('Successfully Uploaded Photo', 201);
         // return Redirect::route('photos.index');
@@ -147,27 +147,27 @@ class PhotosController extends Controller
         Storage::disk('s3')->delete($photo->photo_path);
         $photo->delete();
 
-        $sdk = new Aws\Sdk([
-            'region'   => 'ap-southeast-1',
-            'version'  => 'latest',
-        ]);
+        // $sdk = new Aws\Sdk([
+        //     'region'   => 'ap-southeast-1',
+        //     'version'  => 'latest',
+        // ]);
       
-        $dynamodb = $sdk->createDynamoDb();
-        $marshaler = new Marshaler();
+        // $dynamodb = $sdk->createDynamoDb();
+        // $marshaler = new Marshaler();
         
-        $tableName = 'photos';
-        $key = $marshaler->marshalJson('{"id": "' . $id . '"}');
+        // $tableName = 'photos';
+        // $key = $marshaler->marshalJson('{"id": "' . $id . '"}');
 
-        $params = [
-            'TableName' => $tableName,
-            'Key' => $key
-        ];
+        // $params = [
+        //     'TableName' => $tableName,
+        //     'Key' => $key
+        // ];
 
-        try {
-            $dynamodb->deleteItem($params);
-        } catch (DynamoDbException $e) {
-            echo $e->getMessage() . "\n";
-        }
+        // try {
+        //     $dynamodb->deleteItem($params);
+        // } catch (DynamoDbException $e) {
+        //     echo $e->getMessage() . "\n";
+        // }
             //return response('Successfully Deleted Photo', 200);
             return redirect()->back()
                         ->with('message', 'Post Deleted Successfully.');

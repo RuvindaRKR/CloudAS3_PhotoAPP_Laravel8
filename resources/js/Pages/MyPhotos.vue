@@ -185,7 +185,7 @@
                 
                 photoPreview: null,
 
-                s3url: 'https://photoappas3.s3-ap-southeast-1.amazonaws.com/',
+                s3url: 'https://photoappas31.s3-ap-southeast-1.amazonaws.com/',
 
             }  
         },
